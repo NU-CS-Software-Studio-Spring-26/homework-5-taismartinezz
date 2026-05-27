@@ -78,3 +78,36 @@ Every todo row on the index shows a ❗ button if high priority, or a faded ❕ 
 Clicking the toggle flips the priority and updates only that row (no full page reload)
 The response Content-Type is `text/vnd.turbo-stream.html`
 At least one automated test verifies the toggle returns a Turbo Stream
+
+Part 4 - Plan
+
+(a) Migration + model attribute
+- Generate migration adding high_priority boolean (null: false, default: false) to todos
+- Run bin/rails db:migrate
+- Update test/fixtures/todos.yml with high_priority: false on :one and high_priority: true on :two
+
+(b) Route + controller action
+- Add member route: patch :toggle_high_priority in config/routes.rb
+- Add toggle_high_priority action in todos_controller.rb that flips high_priority
+- Add format.turbo_stream to respond_to block
+- Add controller test asserting response media_type == "text/vnd.turbo-stream.html"
+
+(c) Turbo Stream view + toggle button
+- Create app/views/todos/toggle_high_priority.turbo_stream.erb using turbo_stream.replace
+- Add ❗/❕ button_to in _todo.html.erb with data-turbo-stream on the form
+- Add faded CSS class for low-priority state in application.css
+
+My edits to the plan:
+Removed the JSON response from the toggle action because this app does not use a JSON API
+Skipped index filtering for now since the feature only needs a toggle action
+
+Part 4 - Tests
+
+Command: `bin/rails test`
+
+Running 8 tests in a single process (parallelization threshold is 50)
+Run options: --seed 6063
+# Running:
+........
+Finished in 0.229736s, 34.8226 runs/s, 52.2339 assertions/s.
+8 runs, 12 assertions, 0 failures, 0 errors, 0 skips

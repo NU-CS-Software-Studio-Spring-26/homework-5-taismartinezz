@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: %i[ show edit update destroy ]
+  before_action :set_todo, only: %i[ show edit update destroy toggle_high_priority ]
 
   # GET /todos or /todos.json
   def index
@@ -54,6 +54,16 @@ class TodosController < ApplicationController
     respond_to do |format|
       format.html { redirect_to todos_path, notice: "Todo was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
+    end
+  end
+
+  def toggle_high_priority
+    @todo.update!(high_priority: !@todo.high_priority)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace("todo_#{@todo.id}", partial: "todos/todo", locals: { todo: @todo })
+      end
     end
   end
 

@@ -4,4 +4,9 @@
     <%= todo.description %>
   </p>
 
+  <%= button_to(todo.high_priority? ? "❗" : "❕",
+                toggle_high_priority_todo_path(todo),
+                method: :patch,
+                form: { data: { turbo_stream: true } },
+                class: ("faded" unless todo.high_priority?)) %>
 </div>

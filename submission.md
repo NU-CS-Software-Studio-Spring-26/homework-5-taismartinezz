@@ -44,3 +44,37 @@ Add a flash message when a todo is deleted.
 Files: todos_controller.rb and index.html.erb
 Problem: No message appears after clicking “Destroy”
 Expected result: Show “Todo was successfully deleted.”
+
+Part 4 - Turbo Streams Explanation
+
+Turbo Streams let a page update small parts of the screen without reloading the whole page.
+They can replace, add, or remove content dynamically.
+
+This is different from normal HTML because only part of the page changes instead of refreshing everything.
+
+MIME type:
+text/vnd.turbo-stream.html
+
+Controller pattern:
+
+respond_to do |format|
+  format.html { redirect_to todos_path }
+  format.turbo_stream
+end
+
+Example file:
+app/views/todos/toggle_priority.turbo_stream.erb
+
+Verification:
+I checked the Turbo docs and confirmed the MIME type was correct.
+
+Turbo Streams in this project:
+None yet. Turbo is installed, but there are no Turbo Stream responses in the project yet.
+
+Part 4 - Acceptance Criteria
+I want to mark a todo as high priority with a ❗.
+Todo has a `high_priority` boolean attribute (default: false)
+Every todo row on the index shows a ❗ button if high priority, or a faded ❕ if not
+Clicking the toggle flips the priority and updates only that row (no full page reload)
+The response Content-Type is `text/vnd.turbo-stream.html`
+At least one automated test verifies the toggle returns a Turbo Stream

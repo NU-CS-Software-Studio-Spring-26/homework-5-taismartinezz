@@ -1,7 +1,15 @@
+HW5 Submission:
+Links
+- hw5 branch: [https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/tree/hw5](https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/tree/hw5)
+- .cursorignore: [https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/blob/hw5/.cursorignore](https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/blob/hw5/.cursorignore)
+- AGENTS.md: [https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/blob/hw5/AGENTS.md](https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/blob/hw5/AGENTS.md)
+- rails-conventions.mdc: [https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/blob/hw5/.cursor/rules/rails-conventions.mdc](https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/blob/hw5/.cursor/rules/rails-conventions.mdc)
+- security.mdc: [https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/blob/hw5/.cursor/rules/security.mdc](https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/blob/hw5/.cursor/rules/security.mdc)
+
 Part 3 - Ask Mode
 
 Prompt used:
-“Where is the todos index implemented? Include the files and line numbers. Do not suggest changes.”
+"Where is the todos index implemented? Include the files and line numbers. Do not suggest changes."
 
 Cursor found:
 
@@ -18,9 +26,9 @@ I checked the files and line numbers and everything was correct. No fake files o
 Part 3 - Plan Mode
 
 Prompt used:
-“I want only the creator of a todo to mark it as done. Other logged-in users should still be able to see it. Make a plan with the files to change, tests to add, and any migrations. Do not write code.”
+"I want only the creator of a todo to mark it as done. Other logged-in users should still be able to see it. Make a plan with the files to change, tests to add, and any migrations. Do not write code."
 
-Cursor’s plan:
+Cursor's plan:
 
 Add user_id and completed fields to todos if missing
 Connect todos to users and assign current_user when creating todos
@@ -33,17 +41,27 @@ My edits:
 Removed system tests because there is no auth system yet
 Noted that some steps depend on having a User model first
 Kept the migration, toggle action, and tests as the main tasks
+
+Part 3 - Agent Mode
+
+Prompt used:
+"Implement only this one step: add a migration that adds a completed boolean 
+column (default: false, null: false) to the todos table. Use bin/rails 
+generate migration to create it. Do not touch any other files."
+
+Commit: https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-taismartinezz/commit/21de3d36db87611261258f60385fabc035df6cfa
+
 Part 3 - Bad to Good Prompt
 
 Bad prompt:
-“Fix the bug in todos.”
+"Fix the bug in todos."
 
 Better prompt:
-Add a flash message when a todo is deleted.
-
-Files: todos_controller.rb and index.html.erb
-Problem: No message appears after clicking “Destroy”
-Expected result: Show “Todo was successfully deleted.”
+1. Context: app/controllers/todos_controller.rb, app/views/todos/index.html.erb
+2. Task: Add a flash message when a todo is deleted
+3. Expected vs actual: After clicking "Destroy", the page should show "Todo was successfully deleted." but currently no message appears
+4. Constraints: Only touch todos_controller.rb and index.html.erb. No new gems. Follow the existing flash notice pattern used in create/update.
+5. Done when: Clicking Destroy shows the flash message on the index page and existing tests still pass.
 
 Part 4 - Turbo Streams Explanation
 
@@ -66,7 +84,7 @@ Example file:
 app/views/todos/toggle_priority.turbo_stream.erb
 
 Verification:
-I checked the Turbo docs and confirmed the MIME type was correct.
+I verified the MIME type text/vnd.turbo-stream.html against the Turbo Streams handbook at turbo.hotwired.dev/handbook/streams, which confirms this is the correct Content-Type for Turbo Stream responses.
 
 Turbo Streams in this project:
 None yet. Turbo is installed, but there are no Turbo Stream responses in the project yet.
@@ -112,4 +130,5 @@ Run options: --seed 6063
 Finished in 0.229736s, 34.8226 runs/s, 52.2339 assertions/s.
 8 runs, 12 assertions, 0 failures, 0 errors, 0 skips
 
+Part 4 - Pull Request
 https://github.com/NU-CS-Software-Studio-Spring-26/nu-cs-software-studio-spring-26-homework-5-hw5/pull/14
